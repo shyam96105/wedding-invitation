@@ -1,0 +1,104 @@
+(function ($) {
+    "use strict";
+      $('.sakura-falling').sakura();
+
+    // Personalization logic
+    function getQueryParams() {
+        const params = {};
+        const queryString = window.location.search.substring(1);
+        if (queryString) {
+            const pairs = queryString.split("&");
+            for (let i = 0; i < pairs.length; i++) {
+                const pair = pairs[i].split("=");
+                params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
+            }
+        }
+        return params;
+    }
+
+    const params = getQueryParams();
+    const guestName = params['n'] || params['name'];
+
+    if (guestName) {
+        const guestGreeting = document.getElementById('guest-greeting');
+        if (guestGreeting) {
+            guestGreeting.innerText = `Hi ${guestName},`;
+            guestGreeting.style.display = 'block';
+            
+            // Adjust the subsequent message
+            const joyMessage = document.getElementById('joy-message');
+            if (joyMessage) joyMessage.innerText = "With hearts full of joy, we";
+        }
+
+        // Extract first name for RSVP and Meta
+        const firstName = guestName.split(' ')[0];
+
+        // Update RSVP link
+        const rsvpLink = document.getElementById('rsvp-link');
+        if (rsvpLink) {
+            const encodedFirstName = encodeURIComponent(firstName);
+            const rsvpText = `Hi Shyam, I (${firstName}) will be attending the wedding!`;
+            rsvpLink.href = `https://wa.me/917983873235?text=${encodeURIComponent(rsvpText)}`;
+        }
+
+        // Update Meta tags and Title for link preview
+        document.title = `Wedding Invitation to ${firstName}!`;
+        
+        const metaTitle = document.querySelector('meta[property="og:title"]');
+        if (metaTitle) metaTitle.setAttribute('content', `Wedding Invitation to ${firstName}!`);
+
+        const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+        if (twitterTitle) twitterTitle.setAttribute('content', `Wedding Invitation to ${firstName}!`);
+
+        const description = document.querySelector('meta[name="description"]');
+        if (description) description.setAttribute('content', `Hi ${firstName}, with the divine grace of the almighty, inviting you and your family to Shyam and Susvitha's wedding to be held on 4th September`);
+
+        const og_description = document.querySelector('meta[property="og:description"]');
+        if (og_description) og_description.setAttribute('content', `Hi ${firstName}, with the divine grace of the almighty, inviting you and your family to Shyam and Susvitha's wedding to be held on 4th September`);     
+    }
+
+})(jQuery);
+
+$(window).on('load', function() {
+    const audio = document.getElementById("my_audio");
+    if (audio) {
+        audio.play().catch(error => {
+            console.log("Autoplay was prevented. Music will play on first click.");
+            // Fallback: play on first click if autoplay is blocked
+            $(document).one('click', function() {
+                audio.play();
+            });
+        });
+    }
+});
+
+// Set the date we're counting down to
+var countDownDate = new Date("September 4, 2026 19:00:00").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+    // Get todays date and time
+    var now = new Date().getTime();
+    
+    // Find the distance between now and the count down date
+    var distance = countDownDate - now;
+    
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    // Output the result in an element with id="demo"
+    document.getElementById("time").innerHTML = "<div class='container'><div class='days block'>"+ days + "<br>Days</div>" + "<div class='hours block'>" + hours + "<br>Hours</div>" + "<div class='minutes block'>" + minutes + "<br>Minutes</div>" + "<div class='seconds block'>" + seconds + "<br>Seconds</div></div>";
+    
+    // If the count down is over, write some text 
+    if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("countdown-message").style.display = "none";
+        document.getElementById("time").innerHTML = "Bless the married couple for happy life!";
+    }
+}, 1000);
+
+console.log('Join us in our happiness!');
