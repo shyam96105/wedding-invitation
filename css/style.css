@@ -344,7 +344,7 @@
 }
 
 .sakura {
-	background: #674ea7;
+	background: #AA336A;
 }
 
 
@@ -398,7 +398,7 @@ img {
 	font-style: normal;
 	font-size: 60px;
 	margin: 32px 0;
-	color: #674ea7;
+	color: #AA336A;
 }
 
 .title h2 {
@@ -417,7 +417,7 @@ img {
 	font-weight: bolder;
 	font-style: normal;
 	font-size: 32px;
-	color: #674ea7;
+	color: #AA336A;
 	margin: 16px;
 	text-align: center;
 }
@@ -427,7 +427,7 @@ img {
 	text-transform: uppercase;
 	letter-spacing: 5px;
 	font-size: 24px;
-	color: #674ea7;
+	color: #AA336A;
 	margin-top: 5px;
 }
 
@@ -491,7 +491,7 @@ body {
 .venue {
 	width: auto;
 	height: auto;
-	background-color: #674ea7;
+	background-color: #AA336A;
 	border-radius: 16px;
 	text-align: center;
 	color: #fff;
@@ -552,12 +552,12 @@ body {
 }
 
 .date {
-	color: #d4af37; /* Gold accent */
+	color: #AA336A; /* Gold accent */
 	font-weight: 900;
 }
 
 .place {
-	color: #d4af37; /* Gold accent */
+	color: #AA336A; /* Gold accent */
 	font-weight: 900;
 }
 
@@ -609,4 +609,14 @@ a {
 	align-items: center;
 	font-size: 12px;
 	letter-spacing: 0pt;
+}
+
+.sakura-falling {
+  position: fixed;   /* covers the whole screen */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* petals don’t block clicks */
+  z-index: 9999;    /* ensures petals appear above both images */
 }

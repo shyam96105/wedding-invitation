@@ -1,3 +1,64 @@
+(function ($) {
+    "use strict";
+      $('.sakura-falling').sakura();
+
+    // Personalization logic
+    function getQueryParams() {
+        const params = {};
+        const queryString = window.location.search.substring(1);
+        if (queryString) {
+            const pairs = queryString.split("&");
+            for (let i = 0; i < pairs.length; i++) {
+                const pair = pairs[i].split("=");
+                params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
+            }
+        }
+        return params;
+    }
+
+    const params = getQueryParams();
+    const guestName = params['n'] || params['name'];
+
+    if (guestName) {
+        const guestGreeting = document.getElementById('guest-greeting');
+        if (guestGreeting) {
+            guestGreeting.innerText = `Hi ${guestName},`;
+            guestGreeting.style.display = 'block';
+            
+            // Adjust the subsequent message
+            const joyMessage = document.getElementById('joy-message');
+            if (joyMessage) joyMessage.innerText = "With hearts full of joy, we";
+        }
+
+        // Extract first name for RSVP and Meta
+        const firstName = guestName.split(' ')[0];
+
+        // Update RSVP link
+        const rsvpLink = document.getElementById('rsvp-link');
+        if (rsvpLink) {
+            const encodedFirstName = encodeURIComponent(firstName);
+            const rsvpText = `Hi Sandeep, I (${firstName}) will be attending the wedding!`;
+            rsvpLink.href = `https://wa.me/917983873235?text=${encodeURIComponent(rsvpText)}`;
+        }
+
+        // Update Meta tags and Title for link preview
+        document.title = `Anudeep's Wedding Invitation to ${firstName}!`;
+        
+        const metaTitle = document.querySelector('meta[property="og:title"]');
+        if (metaTitle) metaTitle.setAttribute('content', `Anudeep's Wedding Invitation to ${firstName}!`);
+
+        const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+        if (twitterTitle) twitterTitle.setAttribute('content', `Anudeep's Wedding Invitation to ${firstName}!`);
+
+        const description = document.querySelector('meta[name="description"]');
+        if (description) description.setAttribute('content', `Hi ${firstName}, with the divine grace of the almighty, inviting you and your family to Sandeep and Anushka's wedding to be held on 9th March`);
+
+        const og_description = document.querySelector('meta[property="og:description"]');
+        if (og_description) og_description.setAttribute('content', `Hi ${firstName}, with the divine grace of the almighty, inviting you and your family to Sandeep and Anushka's wedding to be held on 9th March`);     
+    }
+
+})(jQuery);
+
 $(window).on('load', function() {
     const audio = document.getElementById("my_audio");
     if (audio) {
